@@ -2,8 +2,4 @@
 
 EasyShop
 
-ewvaew
-dcx
-s
-
-xx
+cxx
