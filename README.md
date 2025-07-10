@@ -2,7 +2,4 @@
 
 EasyShop
 
-k
-m
-
-m
+l
