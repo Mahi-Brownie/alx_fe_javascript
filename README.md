@@ -3,6 +3,3 @@
 EasyShop
 
 ljh
-
-nk
-
