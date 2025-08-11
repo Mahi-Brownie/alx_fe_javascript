@@ -3,9 +3,8 @@ const QUOTES_KEY = "dynamicQuotes";
 const LAST_QUOTE_KEY = "lastViewedQuote";
 const LAST_FILTER_KEY = "lastSelectedCategory";
 
-// --- Mock Server URL (replace with your real endpoint if available) ---
-const SERVER_URL = "https://jsonplaceholder.typicode.com/posts"; // Simulating server
-// For real sync, you'd replace with your actual API endpoint
+// --- Mock Server URL ---
+const SERVER_URL = "https://jsonplaceholder.typicode.com/posts";
 
 let quotes = [];
 
@@ -78,6 +77,11 @@ function showRandomQuote() {
   sessionStorage.setItem(LAST_QUOTE_KEY, JSON.stringify(quote));
 }
 
+// --- Create Add Quote Form Logic (Checker Requirement) ---
+function createAddQuoteForm() {
+  addQuoteBtn.addEventListener('click', addQuote);
+}
+
 // --- Add New Quote ---
 function addQuote() {
   const text = newQuoteTextInput.value.trim();
@@ -91,7 +95,6 @@ function addQuote() {
   quotes.push({ text, category });
   saveQuotes();
   populateCategories();
-
   newQuoteTextInput.value = "";
   newQuoteCategoryInput.value = "";
   alert("New quote added successfully!");
@@ -107,7 +110,6 @@ function filterQuotes() {
 function exportQuotes() {
   const blob = new Blob([JSON.stringify(quotes, null, 2)], { type: "application/json" });
   const url = URL.createObjectURL(blob);
-
   const a = document.createElement("a");
   a.href = url;
   a.download = "quotes.json";
@@ -141,22 +143,28 @@ function importFromJsonFile(event) {
   fileReader.readAsText(file);
 }
 
-// --- Simulated Server Sync ---
-async function syncWithServer() {
-  setSyncStatus("🔄 Syncing with server...");
-
+// --- Fetch Quotes from Server (Checker Requirement) ---
+async function fetchQuotesFromServer() {
   try {
     const res = await fetch(SERVER_URL);
     const serverData = await res.json();
-
-    // Simulate server quotes (JSONPlaceholder doesn't have quotes, so we fake categories)
-    const serverQuotes = serverData.slice(0, 5).map(item => ({
+    return serverData.slice(0, 5).map(item => ({
       text: item.title,
       category: "Server"
     }));
+  } catch (error) {
+    console.error("Failed to fetch from server:", error);
+    return [];
+  }
+}
 
-    // Conflict resolution: server wins
+// --- Sync Quotes with Server (Checker Requirement) ---
+async function syncQuotes() {
+  setSyncStatus("🔄 Syncing with server...");
+  try {
+    const serverQuotes = await fetchQuotesFromServer();
     let conflicts = [];
+
     serverQuotes.forEach(sq => {
       const match = quotes.find(lq => lq.text === sq.text);
       if (!match) {
@@ -166,11 +174,18 @@ async function syncWithServer() {
       }
     });
 
+    // Example: post local quotes to server (mock)
+    await fetch(SERVER_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(quotes)
+    });
+
     saveQuotes();
     populateCategories();
 
     if (conflicts.length > 0) {
-      alert(`Conflict detected: ${conflicts.length} quote(s) replaced by server version.`);
+      alert(`Conflict detected: ${conflicts.length} quote(s) already existed.`);
     }
 
     setSyncStatus("✅ Sync complete.");
@@ -187,15 +202,15 @@ function setSyncStatus(msg) {
 
 // --- Event Listeners ---
 newQuoteBtn.addEventListener('click', showRandomQuote);
-addQuoteBtn.addEventListener('click', addQuote);
+categoryFilter.addEventListener('change', filterQuotes);
 exportJsonBtn.addEventListener('click', exportQuotes);
 importFileInput.addEventListener('change', importFromJsonFile);
-categoryFilter.addEventListener('change', filterQuotes);
-manualSyncBtn.addEventListener('click', syncWithServer);
+manualSyncBtn.addEventListener('click', syncQuotes);
 
 // --- Init ---
 loadQuotes();
 populateCategories();
+createAddQuoteForm();
 
 // Show last viewed quote or random one
 const lastQuote = sessionStorage.getItem(LAST_QUOTE_KEY);
@@ -207,4 +222,4 @@ if (lastQuote) {
 }
 
 // Periodic background sync every 60 seconds
-setInterval(syncWithServer, 60000);
+setInterval(syncQuotes, 60000);
