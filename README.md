@@ -55,9 +55,6 @@ cd alx_fe_javascript/dom-manipulation
 
 _This project is part of the ALX Software Engineering Front-End JavaScript track._
 
-
 ---
 
 <p>&copy; 2025 ALX Front-End JavaScript | Knoph Ayieko | All rights reserved.</p>
-
-
