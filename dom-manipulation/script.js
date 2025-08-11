@@ -158,6 +158,27 @@ async function fetchQuotesFromServer() {
   }
 }
 
+// --- Notification Helper ---
+function showNotification(message) {
+  const notif = document.createElement('div');
+  notif.textContent = message;
+  notif.style.position = 'fixed';
+  notif.style.bottom = '20px';
+  notif.style.right = '20px';
+  notif.style.backgroundColor = '#333';
+  notif.style.color = '#fff';
+  notif.style.padding = '10px 20px';
+  notif.style.borderRadius = '5px';
+  notif.style.boxShadow = '0 0 5px rgba(0,0,0,0.3)';
+  notif.style.zIndex = 1000;
+  notif.style.fontSize = '14px';
+  document.body.appendChild(notif);
+
+  setTimeout(() => {
+    notif.remove();
+  }, 3000);
+}
+
 // --- Sync Quotes with Server (Checker Requirement) ---
 async function syncQuotes() {
   setSyncStatus("🔄 Syncing with server...");
@@ -174,7 +195,6 @@ async function syncQuotes() {
       }
     });
 
-    // Example: post local quotes to server (mock)
     await fetch(SERVER_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -189,9 +209,11 @@ async function syncQuotes() {
     }
 
     setSyncStatus("✅ Sync complete.");
+    showNotification("Quotes synced with server!");
   } catch (error) {
     console.error("Sync failed:", error);
     setSyncStatus("❌ Sync failed.");
+    showNotification("Failed to sync quotes.");
   }
 }
 
