@@ -56,4 +56,5 @@ _This project is part of the ALX Software Engineering Front-End JavaScript track
 
 ---
 
-<p>&copy; 2025 ALX Front-End JavaScript | Knoph Ayieko. | All rights reserved.</p>
+<p>&copy; 2025 ALX Front-End JavaScript | Knoph Ayieko | All rights reserved.</p>
+
