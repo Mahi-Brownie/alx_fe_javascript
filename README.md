@@ -9,10 +9,10 @@ This project is part of the **ALX Front-End JavaScript** curriculum and focuses 
 ```
 alx_fe_javascript/
 └── dom-manipulation/
-|   ├── index.html
-|   ├── script.js
-└── index.html
-└── README.md
+|   ├── index.html      # Real deal, HTML code-script
+|   ├── script.js       # Real deal, JavaScript code-script
+└── index.html          # For deployment (github page) purpose
+└── README.md           # Repo' documentation
 ```
 
 ## 📜 Learning Objectives
@@ -51,10 +51,9 @@ cd alx_fe_javascript/dom-manipulation
 - GitHub: [Knoph1](https://github.com/Knoph1/alx_fe_javascript.git)
 - LinkedIn: [Knoph Ayieko](https://www.linkedin.com/in/knoph-ayieko)
 
----
 _This project is part of the ALX Software Engineering Front-End JavaScript track._
 
 
 ---
 
-<p>&copy; 2025 ALX Front-End JavaScript - Knoph Ayieko. | All rights reserved.</p>
+<p>&copy; 2025 ALX Front-End JavaScript | Knoph Ayieko. | All rights reserved.</p>
