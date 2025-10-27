@@ -4,24 +4,17 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dynamic Quote Generator</title>
+    <title>Random Quote Generator</title>
 </head>
 
 <body>
-    <h1>Dynamic Quote Generator</h1>
+    <h1>Random Quote Generator</h1>
 
-    <!-- Quote Display Section -->
-    <div id="quoteDisplay">Click "Show New Quote" to begin!</div>
+    <p id="quote-text"></p>
 
-    <!-- Button to Show Random Quote -->
-    <button id="newQuote">Show New Quote</button>
-
-    <!-- Form to Add New Quote -->
-    <div>
-        <input id="newQuoteText" type="text" placeholder="Enter a new quote" />
-        <input id="newQuoteCategory" type="text" placeholder="Enter quote category" />
-        <button id="addQuoteButton">Add Quote</button>
-    </div>
+    <input type="text" id="new-quote" placeholder="Add a new quote" />
+    <button id="add-quote-btn">Add Quote</button>
+    <button id="new-quote-btn">Show New Quote</button>
 
     <script src="script.js"></script>
 </body>
