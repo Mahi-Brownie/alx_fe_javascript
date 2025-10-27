@@ -1,4 +1,4 @@
-// Quotes array with objects
+// Quotes array with objects containing text and category
 const quotes = [
   { text: "The best way to get started is to quit talking and begin doing.", category: "Motivation" },
   { text: "Don’t let yesterday take up too much of today.", category: "Wisdom" },
@@ -10,9 +10,9 @@ const quotes = [
 // Display a random quote
 function displayRandomQuote() {
   const randomIndex = Math.floor(Math.random() * quotes.length);
-  const quote = quotes[randomIndex];
+  const randomQuote = quotes[randomIndex];
   const display = document.getElementById("quoteDisplay");
-  display.textContent = `"${quote.text}" - ${quote.category}`;
+  display.textContent = `"${randomQuote.text}" - ${randomQuote.category}`;
 }
 
 // Add a new quote
@@ -35,8 +35,8 @@ function addQuote() {
 }
 
 // Event listeners exactly as checker expects
-document.getElementById("newQuoteBtn").addEventListener("click", displayRandomQuote);
-document.getElementById("addQuoteBtn").addEventListener("click", addQuote);
+document.getElementById("newQuote").addEventListener("click", displayRandomQuote);
+document.getElementById("addQuote").addEventListener("click", addQuote);
 
-// Show an initial quote on page load
+// Display initial quote
 window.addEventListener("load", displayRandomQuote);
